@@ -37,13 +37,13 @@ export function normalizeReactions(
       users: [],
     },
     {
-      type: 'like',
+      type: 'unlike',
       count: reactions['-1'],
       viewerHasReacted: false,
       users: [],
     },
     {
-      type: 'like',
+      type: 'heart',
       count: reactions.heart,
       viewerHasReacted: false,
       users: [],
