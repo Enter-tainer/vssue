@@ -1,7 +1,6 @@
 import { VssueAPI } from 'vssue';
 
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-
 import { buildURL, concatURL, getCleanURL, parseQuery } from '@vssue/utils';
 
 import {
@@ -22,6 +21,9 @@ import {
   ResponseGraphqlPostComment,
   ResponseGraphqlPutComment,
   ResponseGraphqlGetCommentReactions,
+  Comment,
+  Reactions,
+  Comments,
 } from './types';
 
 /**
@@ -31,7 +33,7 @@ import {
  * @see https://developer.github.com/v4/explorer/
  * @see https://developer.github.com/apps/building-oauth-apps/
  */
-export default class GithubV4 implements VssueAPI.Instance {
+export default class GithubV4 {
   baseURL: string;
   owner: string;
   repo: string;
@@ -401,7 +403,7 @@ query getIssueByTitle(
     accessToken: VssueAPI.AccessToken;
     issueId: string | number;
     query?: Partial<VssueAPI.Query>;
-  }): Promise<VssueAPI.Comments> {
+  }): Promise<Comments> {
     const options: AxiosRequestConfig = {};
     if (accessToken) {
       options.headers = {
@@ -512,7 +514,7 @@ query getComments(
     accessToken: VssueAPI.AccessToken;
     issueId: string | number;
     content: string;
-  }): Promise<VssueAPI.Comment> {
+  }): Promise<Comment> {
     const { data } = await this.$http.post<ResponseGraphqlPostComment>(
       `graphql`,
       {
@@ -579,7 +581,7 @@ mutation postComment(
     issueId: string | number;
     commentId: string | number;
     content: string;
-  }): Promise<VssueAPI.Comment> {
+  }): Promise<Comment> {
     const { data } = await this.$http.post<ResponseGraphqlPutComment>(
       `graphql`,
       {
@@ -679,7 +681,7 @@ mutation deleteComment(
     accessToken: VssueAPI.AccessToken;
     issueId: string | number;
     commentId: string | number;
-  }): Promise<VssueAPI.Reactions> {
+  }): Promise<Reactions> {
     const { firstOrLast, afterOrBefore, cursor } = this._getQueryParams();
 
     const { data } = await this.$http.post<ResponseGraphqlGetCommentReactions>(

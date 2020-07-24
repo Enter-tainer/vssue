@@ -117,3 +117,9 @@ export type Comment = {
   updatedAt: string;
   reactions?: Reactions | null;
 };
+export type Comments = {
+  count: number;
+  page: number;
+  perPage: number;
+  data: Array<Comment>;
+};

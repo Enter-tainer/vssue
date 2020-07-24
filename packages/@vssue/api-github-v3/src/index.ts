@@ -19,6 +19,9 @@ import {
   ResponseComment,
   ResponseReaction,
   ResponseSearch,
+  Comment,
+  Comments,
+  Reactions,
 } from './types';
 
 /**
@@ -27,7 +30,7 @@ import {
  * @see https://developer.github.com/v3/
  * @see https://developer.github.com/apps/building-oauth-apps/
  */
-export default class GithubV3 implements VssueAPI.Instance {
+export default class GithubV3 {
   baseURL: string;
   owner: string;
   repo: string;
@@ -319,7 +322,7 @@ export default class GithubV3 implements VssueAPI.Instance {
     accessToken: VssueAPI.AccessToken;
     issueId: string | number;
     query?: Partial<VssueAPI.Query>;
-  }): Promise<VssueAPI.Comments> {
+  }): Promise<Comments> {
     const issueOptions: AxiosRequestConfig = {
       params: {
         // to avoid caching
@@ -403,7 +406,7 @@ export default class GithubV3 implements VssueAPI.Instance {
     accessToken: VssueAPI.AccessToken;
     issueId: string | number;
     content: string;
-  }): Promise<VssueAPI.Comment> {
+  }): Promise<Comment> {
     const { data } = await this.$http.post<ResponseComment>(
       `repos/${this.owner}/${this.repo}/issues/${issueId}/comments`,
       {
@@ -437,7 +440,7 @@ export default class GithubV3 implements VssueAPI.Instance {
     issueId: string | number;
     commentId: string | number;
     content: string;
-  }): Promise<VssueAPI.Comment> {
+  }): Promise<Comment> {
     const { data } = await this.$http.patch<ResponseComment>(
       `repos/${this.owner}/${this.repo}/issues/comments/${commentId}`,
       {
@@ -496,7 +499,7 @@ export default class GithubV3 implements VssueAPI.Instance {
     accessToken: VssueAPI.AccessToken;
     issueId: string | number;
     commentId: string | number;
-  }): Promise<VssueAPI.Reactions> {
+  }): Promise<Reactions> {
     const { data } = await this.$http.get<ResponseComment>(
       `repos/${this.owner}/${this.repo}/issues/comments/${commentId}`,
       {
