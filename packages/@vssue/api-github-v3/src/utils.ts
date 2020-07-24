@@ -60,6 +60,8 @@ export function normalizeComment(comment: ResponseComment): Comment {
     createdAt: comment.created_at,
     updatedAt: comment.updated_at,
     reactions: normalizeReactions(comment.reactions),
+    isMinimized: false,
+    minimizedReason: null,
   };
 }
 

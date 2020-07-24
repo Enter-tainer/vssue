@@ -84,6 +84,8 @@ export interface ResponseComment {
   createdAt: string;
   updatedAt: string;
   reactionGroups: ResponseReaction[];
+  isMinimized: boolean;
+  minimizedReason: string | null;
 }
 
 export interface ResponseReaction {
@@ -116,6 +118,8 @@ export type Comment = {
   createdAt: string;
   updatedAt: string;
   reactions?: Reactions | null;
+  isMinimized: boolean;
+  minimizedReason: string | null;
 };
 export type Comments = {
   count: number;

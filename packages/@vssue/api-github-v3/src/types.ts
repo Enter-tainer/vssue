@@ -63,6 +63,8 @@ export type Comment = {
   createdAt: string;
   updatedAt: string;
   reactions?: Reactions | null;
+  isMinimized: boolean;
+  minimizedReason: string | null;
 };
 
 export type Comments = {

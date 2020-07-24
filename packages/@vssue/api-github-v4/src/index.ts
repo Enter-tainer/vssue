@@ -604,6 +604,8 @@ mutation putComment(
       bodyHTML
       createdAt
       updatedAt
+      isMinimized
+      minimizedReason
       author {
         avatarUrl
         login
