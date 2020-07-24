@@ -464,7 +464,7 @@ query getComments(
               nodes {
                 avatarUrl
                 url
-                name
+                login
               }
             }
             viewerHasReacted
