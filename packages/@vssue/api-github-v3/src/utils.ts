@@ -5,6 +5,8 @@ import {
   ResponseIssue,
   ResponseComment,
   ResponseReactionsSummary,
+  Reactions,
+  Comment,
 } from './types';
 
 export function normalizeUser(user: ResponseUser): VssueAPI.User {
@@ -26,15 +28,30 @@ export function normalizeIssue(issue: ResponseIssue): VssueAPI.Issue {
 
 export function normalizeReactions(
   reactions: ResponseReactionsSummary
-): VssueAPI.Reactions {
-  return {
-    like: reactions['+1'],
-    unlike: reactions['-1'],
-    heart: reactions.heart,
-  };
+): Reactions {
+  return [
+    {
+      type: 'like',
+      count: reactions['+1'],
+      viewerHasReacted: false,
+      users: [],
+    },
+    {
+      type: 'like',
+      count: reactions['-1'],
+      viewerHasReacted: false,
+      users: [],
+    },
+    {
+      type: 'like',
+      count: reactions.heart,
+      viewerHasReacted: false,
+      users: [],
+    },
+  ];
 }
 
-export function normalizeComment(comment: ResponseComment): VssueAPI.Comment {
+export function normalizeComment(comment: ResponseComment): Comment {
   return {
     id: comment.id,
     content: comment.body_html,

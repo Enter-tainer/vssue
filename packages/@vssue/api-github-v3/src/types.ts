@@ -41,3 +41,26 @@ export interface ResponseSearch<T> {
   total_count: number;
   items: T[];
 }
+
+export type Reactions = {
+  type: 'heart' | 'like' | 'unlike';
+  count: number;
+  viewerHasReacted: boolean;
+  users: User[];
+}[];
+
+export type User = {
+  username: string;
+  avatar?: string;
+  homepage?: string;
+};
+
+export type Comment = {
+  id: string | number;
+  content: string;
+  contentRaw: string;
+  author: User;
+  createdAt: string;
+  updatedAt: string;
+  reactions?: Reactions | null;
+};
