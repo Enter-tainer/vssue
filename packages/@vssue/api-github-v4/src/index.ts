@@ -453,6 +453,8 @@ query getComments(
           bodyHTML
           createdAt
           updatedAt
+          isMinimized
+          minimizedReason
           author {
             avatarUrl
             login
@@ -604,8 +606,6 @@ mutation putComment(
       bodyHTML
       createdAt
       updatedAt
-      isMinimized
-      minimizedReason
       author {
         avatarUrl
         login
