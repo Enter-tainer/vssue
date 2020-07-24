@@ -457,9 +457,15 @@ query getComments(
             url
           }
           reactionGroups {
-            users (first: 0) {
+            users (first: 5) {
               totalCount
+              nodes {
+                avatarUrl
+                url
+                name
+              }
             }
+            viewerHasReacted
             content
           }
         }

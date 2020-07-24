@@ -89,6 +89,31 @@ export interface ResponseComment {
 export interface ResponseReaction {
   users: {
     totalCount: number;
+    nodes: ResponseUser[];
   };
+  viewerHasReacted: boolean;
   content: 'THUMBS_UP' | 'THUMBS_DOWN' | 'HEART' | string;
 }
+
+export type User = {
+  username: string;
+  avatar?: string;
+  homepage?: string;
+};
+
+export type Reactions = {
+  type: 'heart' | 'like' | 'unlike';
+  count: number;
+  viewerHasReacted: boolean;
+  users: User[];
+}[];
+
+export type Comment = {
+  id: string | number;
+  content: string;
+  contentRaw: string;
+  author: User;
+  createdAt: string;
+  updatedAt: string;
+  reactions?: Reactions | null;
+};
