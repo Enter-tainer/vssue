@@ -777,6 +777,45 @@ mutation postCommentReaction(
     return true;
   }
 
+  async deleteCommentReaction({
+    accessToken,
+    commentId,
+    reaction,
+  }: {
+    accessToken: VssueAPI.AccessToken;
+    commentId: string | number;
+    issueId: string | number;
+    reaction: keyof VssueAPI.Reactions;
+  }): Promise<boolean> {
+    await this.$http.post(
+      `graphql`,
+      {
+        variables: {
+          commentId,
+          content: mapReactionName(reaction),
+        },
+        query: `\
+mutation deleteCommentReaction(
+  $commentId: ID!,
+  $content: ReactionContent!,
+) {
+  removeReaction(input: {
+    subjectId: $commentId
+    content: $content
+  }) {
+    reaction {
+      databaseId
+    }
+  }
+}`,
+      },
+      {
+        headers: { Authorization: `token ${accessToken}` },
+      }
+    );
+    return true;
+  }
+
   private _getQueryParams({
     page = this._pageInfo.page,
     sort = this._pageInfo.sort,
